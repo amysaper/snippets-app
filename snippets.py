@@ -30,13 +30,15 @@ def get(name):
 
 	Returns the snippet.
 	"""
-	logging.info("Retrieving snippet {!r}".format(name)
+	logging.info("Retrieving snippet {!r}".format(name))
     	cursor = connection.cursor()
     	command = "select * from snippets where keyword = (%s)"
-    	row = cursor.fetchone(command, name)
-	select message from row
+    	cursor.execute(command,(name,))
+	row = cursor.fetchone()
+	print (row)
 	logging.debug ("Retrieved row successfully")
-    	return mesage
+    	message = row[1]
+	return message
 
 def main():
     	"""Main function"""
